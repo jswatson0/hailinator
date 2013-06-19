@@ -1,4 +1,5 @@
 require 'twitter'
+require 'csv'
 
 Twitter.configure do |config|
   config.consumer_key = "S1dTtHshDW8STRhiHpg3UQ"
@@ -7,4 +8,9 @@ Twitter.configure do |config|
   config.oauth_token_secret = "mX1JMl6YbOcvXbGLdyTK4BlrcKtWmAcj2cWG66zW2L4"
 end
 
-Twitter.search('hail' 'damage' 'haildamage')
+CSV.open('hailinator.csv', 'wb') do |csv|
+	csv << ["handle", "text", "url"]
+  Twitter.search('#haildamage').results.map do |status|
+    csv << ["#{status.from_user}", "#{status.text}", "twitter.com/#{status.from_user}/statuses/#{status.id}"]
+  end
+end
