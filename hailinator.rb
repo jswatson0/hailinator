@@ -1,5 +1,6 @@
 require 'twitter'
 require 'csv'
+require 'koala'
 
 Twitter.configure do |config|
   config.consumer_key = "S1dTtHshDW8STRhiHpg3UQ"
@@ -16,6 +17,9 @@ CSV.open('hailinator.csv', 'wb') do |csv|
     	#  This junk WORKS!
     # Twitter.favorite(status.id)
     # Twitter.follow("#{status.from_user}")
+	end
+  Facebook.search('haildamage').results.map do |status|
+  	csv << []
 
-  end
+  	end
 end
